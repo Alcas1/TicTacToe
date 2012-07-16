@@ -36,7 +36,7 @@ public class TicTacToe extends JApplet implements MouseListener{
 	public int compScore;//allows use of the computer's score
 	public int tieScore;//allows use of tie scores
 	public int start;//checks if it is the first time played
-	
+
 	/*public void createSaveFile() throws IOException//checks for and handles ioexception
 	{			
 		if(!TicTacToe.exists())//Checks if the file exists. If not create a new save
@@ -96,6 +96,7 @@ public class TicTacToe extends JApplet implements MouseListener{
 
 	public void paint(Graphics page)//all the graphics
 	{
+
 		page.clearRect(0,0,600,600);//clear screen
 		page.drawString(Integer.toString(turn),200,500);
 		page.drawString(Integer.toString(option2),200,520);
@@ -122,7 +123,7 @@ public class TicTacToe extends JApplet implements MouseListener{
 			page.drawString("seems unbeatable. How do you think you will fair now?",20,230);
 			page.drawString("Is facing the computer hopeless, or not?",20,260);
 		}
-		
+
 		if(state==0)//Menu Screen
 		{
 			turn=1;
@@ -262,7 +263,24 @@ public class TicTacToe extends JApplet implements MouseListener{
 			page.setFont(QuitText);
 			page.setColor(Color.blue);
 			page.drawString("Computer Thinking...",100,400);
-			turnTestFirst();//tests through the moves of the computer if player goes first
+			//tests through the moves of the computer if player goes first
+
+			if(turn==2)
+			{
+				turn2();
+			}
+			if(turn==4)
+			{
+				turn4();
+			}
+			if(turn==6)
+			{
+				turn6();	
+			}
+			if(turn==8)
+			{
+				turn8();
+			}
 			page.clearRect(80,380,300,100);
 		}
 		if(state==2)//game when player moves second
@@ -285,7 +303,27 @@ public class TicTacToe extends JApplet implements MouseListener{
 			page.setFont(QuitText);
 			page.setColor(Color.blue);
 			page.drawString("Computer Thinking...",100,400);
-			turnTestSecond();//tests through the moves of the computer if player goes second
+			//tests through the moves of the computer if player goes second
+			if(turn==1)
+			{
+				turn1();
+			}
+			if(turn==3)
+			{
+				turn3();
+			}
+			if(turn==5)
+			{
+				turn5();
+			}
+			if(turn==7)
+			{
+				turn7();
+			}
+			if(turn==9)
+			{
+				turn9();
+			}
 			page.clearRect(80,380,300,100);
 		}
 
@@ -305,232 +343,195 @@ public class TicTacToe extends JApplet implements MouseListener{
 				page.drawString("You Tied",100,100);
 			}//graphics
 			page.setColor(Color.black);
+			page.setFont(QuitText);
+			page.drawString("Wins",340,180);
+			page.drawString("Ties",390,180);
+			page.drawString("Losses",440,180);
+			page.drawRoundRect(80,200,200,80,20,100);
 			page.setFont(TitleText);
 			page.drawString("SCORES",320,100);
 			page.setFont(PlayText);
 			page.setColor(Color.green);
 			page.drawString(Integer.toString(yourScore),350,150);
+			page.setFont(PlayText);
+			page.drawString("Try Again?",95,250);
 			page.setColor(Color.yellow);
 			page.drawString(Integer.toString(tieScore),400,150);
 			page.setColor(Color.red);
 			page.drawString(Integer.toString(compScore),450,150);
-			page.setFont(QuitText);
-			page.setColor(Color.black);
-			page.drawString("Wins",340,180);
-			page.drawString("Ties",390,180);
-			page.drawString("Losses",440,180);
-			page.drawRoundRect(80,200,200,80,20,100);
-			page.setColor(Color.green);
-			page.setFont(PlayText);
-			page.drawString("Try Again?",95,250);
-			page.setColor(Color.red);
 			page.drawRoundRect(100,300,150,60,100,20);
 			page.setFont(QuitText);
 			page.drawString("It's Hopeless",118,333);
 
 		}
 	}
-	public void turnTestFirst()//computer moves if player goes first
+
+	public void turn2()
 	{
-		if(turn==2)
+		turn++;
+		sleep(1000);
+		if(squares[4]==0)
 		{
-			turn++;
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-			}
-			if(squares[4]==0)
+			squares[4]=1;
+			option=0;
+			repaint();
+		}
+		else if(squares[4]==2)
+		{
+			test=r.nextInt(4);
+			if(test==0)
 			{
-				squares[4]=1;
-				option=0;
+				squares[0]=1;
+				option=1;
 				repaint();
 			}
-			else if(squares[4]==2)
+			else if(test==1)
 			{
-				test=r.nextInt(4);
-				if(test==0)
+				squares[2]=1;
+				option=2;
+				repaint();
+			}
+			else if(test==2)
+			{
+				squares[6]=1;
+				option=3;
+				repaint();
+			}
+			else if(test==3)
+			{
+				squares[8]=1;
+				option=4;
+				repaint();
+			}	
+		}
+	}
+	public void turn4()
+	{
+		turn++;
+		sleep(1000);
+		defenseTest();
+		if(moved==false)
+		{
+			if(option==0)
+			{
+				if(squares[3]==2&&squares[2]==2)
 				{
+					moved=true;
 					squares[0]=1;
-					option=1;
 					repaint();
 				}
-				else if(test==1)
+				else if(squares[1]==2&&squares[6]==2)
 				{
+					moved=true;
+					squares[0]=1;
+					repaint();
+				}
+				else if(squares[3]==2&&squares[8]==2)
+				{
+					moved=true;
+					squares[0]=1;
+					repaint();
+				}
+				else if(squares[1]==2&&squares[8]==2)
+				{
+					moved=true;
+					squares[0]=1;
+					repaint();
+				}
+				else if(squares[0]==2&&squares[8]==2)
+				{
+					test=r.nextInt(4);
+					if(test==0)
+					{
+						moved=true;
+						squares[1]=1;
+						repaint();
+					}
+					else if(test==1)
+					{
+						moved=true;
+						squares[3]=1;
+						repaint();
+					}
+					else if(test==2)
+					{
+						moved=true;
+						squares[5]=1;
+						repaint();
+					}
+					else if(test==3)
+					{
+						moved=true;
+						squares[7]=1;
+						repaint();
+					}	
+				}
+				else if(squares[2]==2&&squares[6]==2)
+				{
+					test=r.nextInt(4);
+					if(test==0)
+					{
+						moved=true;
+						squares[1]=1;
+						repaint();
+					}
+					else if(test==1)
+					{
+						moved=true;
+						squares[3]=1;
+						repaint();
+					}
+					else if(test==2)
+					{
+						moved=true;
+						squares[5]=1;
+						repaint();
+					}
+					else if(test==3)
+					{
+						moved=true;
+						squares[7]=1;
+						repaint();
+					}	
+				}
+
+			}
+			if(option==1)
+			{
+				if(squares[8]==2)
+				{
+					moved=true;
 					squares[2]=1;
-					option=2;
 					repaint();
 				}
-				else if(test==2)
+			}
+			if(option==2)
+			{
+				if(squares[6]==2)
 				{
-					squares[6]=1;
-					option=3;
+					moved=true;
+					squares[0]=1;
 					repaint();
 				}
-				else if(test==3)
+			}
+			if(option==3)
+			{
+				if(squares[2]==2)
 				{
+					moved=true;
 					squares[8]=1;
-					option=4;
 					repaint();
-				}	
+				}
 			}
-		}
-		else if(turn==4)
-		{
-			turn++;
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-			}
-			defenseTest();
-			if(moved==false)
+			if(option==4)
 			{
-				if(option==0)
+				if(squares[0]==2)
 				{
-					if(squares[3]==2&&squares[2]==2)
-					{
-						moved=true;
-						squares[0]=1;
-						repaint();
-					}
-					else if(squares[1]==2&&squares[6]==2)
-					{
-						moved=true;
-						squares[0]=1;
-						repaint();
-					}
-					else if(squares[3]==2&&squares[8]==2)
-					{
-						moved=true;
-						squares[0]=1;
-						repaint();
-					}
-					else if(squares[1]==2&&squares[8]==2)
-					{
-						moved=true;
-						squares[0]=1;
-						repaint();
-					}
-					else if(squares[0]==2&&squares[8]==2)
-					{
-						test=r.nextInt(4);
-						if(test==0)
-						{
-							moved=true;
-							squares[1]=1;
-							repaint();
-						}
-						else if(test==1)
-						{
-							moved=true;
-							squares[3]=1;
-							repaint();
-						}
-						else if(test==2)
-						{
-							moved=true;
-							squares[5]=1;
-							repaint();
-						}
-						else if(test==3)
-						{
-							moved=true;
-							squares[7]=1;
-							repaint();
-						}	
-					}
-					else if(squares[2]==2&&squares[6]==2)
-					{
-						test=r.nextInt(4);
-						if(test==0)
-						{
-							moved=true;
-							squares[1]=1;
-							repaint();
-						}
-						else if(test==1)
-						{
-							moved=true;
-							squares[3]=1;
-							repaint();
-						}
-						else if(test==2)
-						{
-							moved=true;
-							squares[5]=1;
-							repaint();
-						}
-						else if(test==3)
-						{
-							moved=true;
-							squares[7]=1;
-							repaint();
-						}	
-					}
-
-				}
-				if(option==1)
-				{
-					if(squares[8]==2)
-					{
-						moved=true;
-						squares[2]=1;
-						repaint();
-					}
-				}
-				if(option==2)
-				{
-					if(squares[6]==2)
-					{
-						moved=true;
-						squares[0]=1;
-						repaint();
-					}
-				}
-				if(option==3)
-				{
-					if(squares[2]==2)
-					{
-						moved=true;
-						squares[8]=1;
-						repaint();
-					}
-				}
-				if(option==4)
-				{
-					if(squares[0]==2)
-					{
-						moved=true;
-						squares[6]=1;
-						repaint();
-					}
-				}
-				if(moved==false)
-				{
-					test=0;
-					for(int i=0;i<squares.length;i++)
-					{
-						if(squares[i]==0)
-						{
-							test=i;
-						}
-					}
-					squares[test]=1;
+					moved=true;
+					squares[6]=1;
 					repaint();
-
-
-
 				}
 			}
-		}
-		else if(turn==6)
-		{
-			turn++;
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-			}
-			offenseTest();
-			defenseTest();
 			if(moved==false)
 			{
 				test=0;
@@ -544,824 +545,766 @@ public class TicTacToe extends JApplet implements MouseListener{
 				squares[test]=1;
 				repaint();
 
-			}
-		}
-		else if(turn==8)
-		{
-			turn++;
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-			}
-			offenseTest();
-			defenseTest();
-			if(moved==false)
-			{
-				test=0;
-				for(int i=0;i<squares.length;i++)
-				{
-					if(squares[i]==0)
-					{
-						test=i;
-					}
-				}
-				squares[test]=1;
-				repaint();
+
+
 			}
 		}
 	}
-	public void turnTestSecond()//computer moves if player goes second
+	public void turn6()
 	{
-		if(turn==1)
+		turn++;
+		sleep(1000);
+		offenseTest();
+		defenseTest();
+		if(moved==false)
 		{
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
+			test=0;
+			for(int i=0;i<squares.length;i++)
+			{
+				if(squares[i]==0)
+				{
+					test=i;
+				}
 			}
-			squares[4]=2;
-			turn++;
+			squares[test]=1;
+			repaint();
+
+		}
+	}
+	public void turn8()
+	{
+		turn++;
+		sleep(1000);
+		offenseTest();
+		defenseTest();
+		if(moved==false)
+		{
+			test=0;
+			for(int i=0;i<squares.length;i++)
+			{
+				if(squares[i]==0)
+				{
+					test=i;
+				}
+			}
+			squares[test]=1;
 			repaint();
 		}
-		else if(turn==3)
+	}
+
+
+	public void turn1()
+	{
+		sleep(1000);
+		squares[4]=2;
+		turn++;
+		repaint();
+	}
+	public void turn3()
+	{
+		sleep(1000);
+		turn++;
+		if(squares[0]==1)
 		{
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-			}
-			turn++;
-			if(squares[0]==1)
+			squares[8]=2;
+			option=0;
+			repaint();
+		}
+		else if(squares[2]==1)
+		{
+			squares[6]=2;
+			option=1;
+			repaint();
+		}
+		else if(squares[6]==1)
+		{
+			squares[2]=2;
+			option=2;
+			repaint();
+		}
+		else if(squares[8]==1)
+		{
+			squares[0]=2;
+			option=3;
+			repaint();
+		}
+		else
+		{
+			test=r.nextInt(4);
+			if(test==0)
 			{
 				squares[8]=2;
 				option=0;
 				repaint();
 			}
-			else if(squares[2]==1)
+			else if(test==1)
 			{
 				squares[6]=2;
 				option=1;
 				repaint();
 			}
-			else if(squares[6]==1)
+			else if(test==2)
 			{
 				squares[2]=2;
 				option=2;
 				repaint();
 			}
-			else if(squares[8]==1)
+			else if(test==3)
 			{
 				squares[0]=2;
 				option=3;
 				repaint();
 			}
-			else
-			{
-				test=r.nextInt(4);
-				if(test==0)
-				{
-					squares[8]=2;
-					option=0;
-					repaint();
-				}
-				else if(test==1)
-				{
-					squares[6]=2;
-					option=1;
-					repaint();
-				}
-				else if(test==2)
-				{
-					squares[2]=2;
-					option=2;
-					repaint();
-				}
-				else if(test==3)
-				{
-					squares[0]=2;
-					option=3;
-					repaint();
-				}
-			}
-		}
-		else if(turn==5)
-		{
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-			}
-
-			offenseTest();
-			turn++;
-			if(moved==false)
-			{
-				if(option==0)
-				{
-
-					if(squares[1]==1)
-					{
-						squares[2]=2;
-						option2=1;
-						repaint();
-					}
-					else if(squares[2]==1)
-					{
-						squares[1]=2;
-						option2=2;
-						repaint();
-					}
-					else if(squares[3]==1)
-					{
-						squares[6]=2;
-						option2=3;
-						repaint();
-					}
-					else if(squares[5]==1)
-					{
-						squares[1]=2;
-						option2=4;
-						repaint();
-					}
-					else if(squares[6]==1)
-					{
-						squares[3]=2;
-						option2=5;
-						repaint();
-					}
-
-					else if(squares[7]==1)
-					{
-						squares[2]=2;
-						option2=6;
-						repaint();
-					}
-				}
-
-				if(option==1)
-				{
-					if(squares[0]==1)
-					{
-						squares[1]=2;
-						option2=7;
-						repaint();
-					}
-					else if(squares[1]==1)
-					{
-						squares[0]=2;
-						option2=8;
-						repaint();
-					}
-					else if(squares[3]==1)
-					{
-						squares[8]=2;
-						option2=9;
-						repaint();
-					}
-					else if(squares[5]==1)
-					{
-						squares[8]=2;
-						option2=10;
-						repaint();
-					}
-					else if(squares[7]==1)
-					{
-						squares[0]=2;
-						option2=11;
-						repaint();
-					}
-					else if(squares[8]==1)
-					{
-						squares[5]=2;
-						option2=12;
-						repaint();
-					}
-				}
-				if(option==2)
-				{
-					if(squares[0]==1)
-					{
-						squares[3]=2;
-						option2=13;
-						repaint();
-					}
-					if(squares[1]==1)
-					{
-						squares[8]=2;
-						option2=14;
-						repaint();
-					}
-					if(squares[3]==1)
-					{
-						squares[0]=2;
-						option2=15;
-						repaint();
-					}
-					if(squares[5]==1)
-					{
-						squares[0]=2;
-						option2=16;
-						repaint();
-					}
-					if(squares[7]==1)
-					{
-						squares[8]=2;
-						option2=17;
-						repaint();
-					}
-					if(squares[8]==1)
-					{
-						squares[7]=2;
-						option2=18;
-						repaint();
-					}
-				}
-				if(option==3)
-				{
-					if(squares[1]==1)
-					{
-						squares[6]=2;
-						option2=19;
-						repaint();
-					}
-					if(squares[2]==1)
-					{
-						squares[5]=2;
-						option2=20;
-						repaint();
-					}
-					else if(squares[3]==1)
-					{
-						squares[2]=2;
-						option2=21;
-						repaint();
-					}
-					else if(squares[5]==1)
-					{
-						squares[2]=2;
-						option2=22;
-						repaint();
-					}
-					else if(squares[6]==1)
-					{
-						squares[7]=2;
-						option2=23;
-						repaint();
-					}
-					else if(squares[7]==1)
-					{
-						squares[6]=2;
-						option2=24;
-						repaint();
-					}
-				}
-			}
-
-		}
-		else if(turn==7)
-		{
-			turn++;
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-			}
-			offenseTest();
-			if(moved==false)
-			{
-				if(option2==1)
-				{
-					if(squares[6]==1)
-					{
-						squares[5]=2;
-					}	
-					else if(squares[5]==1)
-					{
-						squares[6]=2;
-					}
-					else if(squares[5]!=1&&squares[6]!=1)
-					{
-						test=r.nextInt(2);
-						if(test==0)
-						{
-							squares[5]=2;
-						}
-						else if(test==1)
-							squares[6]=2;
-					}
-
-				}
-				if(option2==2)
-				{
-					if(squares[7]!=1)
-					{
-						squares[7]=2;
-					}
-					else if(squares[7]==1)
-					{
-						squares[5]=2;
-					}
-				}
-				if(option2==3)
-				{
-					if(squares[2]==1)
-					{
-						squares[7]=2;
-					}	
-					else if(squares[7]==1)
-					{
-						squares[2]=2;
-					}
-					else if(squares[2]!=1&&squares[7]!=1)
-					{
-						test=r.nextInt(2);
-						if(test==0)
-						{
-							squares[2]=2;
-						}
-						else if(test==1)
-							squares[7]=2;
-					}
-				}
-				if(option2==4)
-				{
-					if(squares[2]==1)
-					{
-						squares[7]=2;
-					}	
-					else if(squares[7]==1)
-					{
-						squares[2]=2;
-					}
-					else if(squares[2]!=1&&squares[7]!=1)
-					{
-						test=r.nextInt(2);
-						if(test==0)
-						{
-							squares[2]=2;
-						}
-						else if(test==1)
-							squares[7]=2;
-					}
-
-				}
-				if(option2==5)
-				{
-					if(squares[5]!=1)
-					{
-						squares[5]=2;
-					}
-					else if(squares[5]==1)
-					{
-						squares[7]=2;
-					}
-				}
-				if(option2==6)
-				{
-					if(squares[5]==1)
-					{
-						squares[6]=2;
-					}	
-					else if(squares[6]==1)
-					{
-						squares[5]=2;
-					}
-					else if(squares[5]!=1&&squares[6]!=1)
-					{
-						test=r.nextInt(2);
-						if(test==0)
-						{
-							squares[5]=2;
-						}
-						else if(test==1)
-							squares[6]=2;
-					}
-				}
-				if(option2==7)
-				{
-					if(squares[7]!=1)
-					{
-						squares[7]=2;
-					}
-					else if(squares[7]==1)
-					{
-						squares[3]=2;
-					}
-				}
-				if(option2==8)
-				{
-					if(squares[3]==1)
-					{
-						squares[8]=2;
-					}	
-					else if(squares[8]==1)
-					{
-						squares[3]=2;
-					}
-					else if(squares[3]!=1&&squares[8]!=1)
-					{
-						test=r.nextInt(2);
-						if(test==0)
-						{
-							squares[8]=2;
-						}
-						else if(test==1)
-							squares[3]=2;
-					}
-				}
-				if(option2==9)
-				{
-					if(squares[0]==1)
-					{
-						squares[7]=2;
-					}	
-					else if(squares[7]==1)
-					{
-						squares[0]=2;
-					}
-					else if(squares[0]!=1&&squares[7]!=1)
-					{
-						test=r.nextInt(2);
-						if(test==0)
-						{
-							squares[5]=0;
-						}
-						else if(test==1)
-							squares[6]=7;
-					}
-				}
-				if(option2==10)
-				{
-					if(squares[0]==1)
-					{
-						squares[7]=2;
-					}	
-					else if(squares[7]==1)
-					{
-						squares[0]=2;
-					}
-					else if(squares[0]!=1&&squares[7]!=1)
-					{
-						test=r.nextInt(2);
-						if(test==0)
-						{
-							squares[0]=2;
-						}
-						else if(test==1)
-							squares[7]=2;
-					}
-				}
-				if(option2==11)
-				{
-					if(squares[3]==1)
-					{
-						squares[8]=2;
-					}	
-					else if(squares[8]==1)
-					{
-						squares[3]=2;
-					}
-					else if(squares[3]!=1&&squares[8]!=1)
-					{
-						test=r.nextInt(2);
-						if(test==0)
-						{
-							squares[3]=2;
-						}
-						else if(test==1)
-							squares[8]=2;
-					}
-				}
-				if(option2==12)
-				{
-					if(squares[3]!=1)
-					{
-						squares[3]=2;
-					}
-					else if(squares[3]==1)
-					{
-						squares[7]=2;
-					}
-				}
-				if(option2==13)
-				{
-					if(squares[5]!=1)
-					{
-						squares[5]=2;
-					}
-					else if(squares[5]==1)
-					{
-						squares[1]=2;
-					}
-				}
-				if(option2==14)
-				{
-					if(squares[0]==1)
-					{
-						squares[8]=2;
-					}	
-					else if(squares[8]==1)
-					{
-						squares[0]=2;
-					}
-					else if(squares[0]!=1&&squares[8]!=1)
-					{
-						test=r.nextInt(2);
-						if(test==0)
-						{
-							squares[0]=2;
-						}
-						else if(test==1)
-							squares[8]=2;
-					}
-				}
-				if(option2==15)
-				{
-
-					if(squares[1]==1)
-					{
-						squares[8]=2;
-					}	
-					else if(squares[8]==1)
-					{
-						squares[1]=2;
-					}
-					else if(squares[1]!=1&&squares[8]!=1)
-					{
-						test=r.nextInt(2);
-						if(test==0)
-						{
-							squares[1]=2;
-						}
-						else if(test==1)
-							squares[8]=2;
-					}
-				}
-				if(option2==16)
-				{
-					if(squares[1]==1)
-					{
-						squares[8]=2;
-					}	
-					else if(squares[8]==1)
-					{
-						squares[1]=2;
-					}
-					else if(squares[1]!=1&&squares[8]!=1)
-					{
-						test=r.nextInt(2);
-						if(test==0)
-						{
-							squares[1]=2;
-						}
-						else if(test==1)
-							squares[8]=2;
-					}
-				}
-				if(option2==17)
-				{
-					if(squares[0]==1)
-					{
-						squares[5]=2;
-					}	
-					else if(squares[5]==1)
-					{
-						squares[0]=2;
-					}
-					else if(squares[0]!=1&&squares[5]!=1)
-					{
-						test=r.nextInt(2);
-						if(test==0)
-						{
-							squares[0]=2;
-						}
-						else if(test==1)
-							squares[5]=2;
-					}
-				}
-				if(option2==18)
-				{
-					if(squares[1]!=1)
-					{
-						squares[1]=2;
-					}
-					else if(squares[1]==1)
-					{
-						squares[5]=2;
-					}
-				}
-				if(option2==19)
-				{
-					if(squares[2]==1)
-					{
-						squares[3]=2;
-					}	
-					else if(squares[3]==1)
-					{
-						squares[2]=2;
-					}
-					else if(squares[2]!=1&&squares[3]!=1)
-					{
-						test=r.nextInt(2);
-						if(test==0)
-						{
-							squares[2]=2;
-						}
-						else if(test==1)
-							squares[3]=2;
-					}
-				}
-				if(option2==20)
-				{
-					if(squares[3]!=1)
-					{
-						squares[3]=2;
-					}
-					else if(squares[3]==1)
-					{
-						squares[1]=2;
-					}
-				}
-				if(option2==21)
-				{
-					if(squares[1]==1)
-					{
-						squares[6]=2;
-					}	
-					else if(squares[6]==1)
-					{
-						squares[1]=2;
-					}
-					else if(squares[1]!=1&&squares[6]!=1)
-					{
-						test=r.nextInt(2);
-						if(test==0)
-						{
-							squares[1]=2;
-						}
-						else if(test==1)
-							squares[6]=2;
-					}
-				}
-				if(option2==22)
-				{
-					if(squares[1]==1)
-					{
-						squares[6]=2;
-					}	
-					else if(squares[6]==1)
-					{
-						squares[1]=2;
-					}
-					else if(squares[1]!=1&&squares[6]!=1)
-					{
-						test=r.nextInt(2);
-						if(test==0)
-						{
-							squares[1]=2;
-						}
-						else if(test==1)
-							squares[6]=2;
-					}
-				}
-				if(option2==23)
-				{
-					if(squares[1]!=1)
-					{
-						squares[1]=2;
-					}
-					else if(squares[1]==1)
-					{
-						squares[3]=2;
-					}
-				}
-				if(option2==24)
-				{
-					if(squares[2]==1)
-					{
-						squares[3]=2;
-					}	
-					else if(squares[3]==1)
-					{
-						squares[2]=2;
-					}
-					else if(squares[2]!=1&&squares[3]!=1)
-					{
-						test=r.nextInt(2);
-						if(test==0)
-						{
-							squares[2]=2;
-						}
-						else if(test==1)
-							squares[3]=2;
-					}
-				}
-			}
-			repaint();
-		}
-		else if(turn==9)
-		{
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-			}
-			turn++;
-			for(int i=0;i<squares.length;i++)
-			{
-				if(squares[i]==0)
-				{
-					squares[i]=2;
-				}
-			}
-			repaint();
 		}
 	}
-
-
-
-	public void winTest()//algorithms to see who won
+	public void turn5()
 	{
-		if(state==1)//test to see if the computer won. O's
+		sleep(1000);
+		offenseTest();
+		turn++;
+		if(moved==false)
 		{
-			if(squares[0]==1&&squares[1]==1&&squares[2]==1)
+			if(option==0)
 			{
-				win=true;
 
+				if(squares[1]==1)
+				{
+					squares[2]=2;
+					option2=1;
+					repaint();
+				}
+				else if(squares[2]==1)
+				{
+					squares[1]=2;
+					option2=2;
+					repaint();
+				}
+				else if(squares[3]==1)
+				{
+					squares[6]=2;
+					option2=3;
+					repaint();
+				}
+				else if(squares[5]==1)
+				{
+					squares[1]=2;
+					option2=4;
+					repaint();
+				}
+				else if(squares[6]==1)
+				{
+					squares[3]=2;
+					option2=5;
+					repaint();
+				}
+
+				else if(squares[7]==1)
+				{
+					squares[2]=2;
+					option2=6;
+					repaint();
+				}
 			}
-			else if(squares[3]==1&&squares[4]==1&&squares[5]==1)
-			{
-				win=true;
 
+			if(option==1)
+			{
+				if(squares[0]==1)
+				{
+					squares[1]=2;
+					option2=7;
+					repaint();
+				}
+				else if(squares[1]==1)
+				{
+					squares[0]=2;
+					option2=8;
+					repaint();
+				}
+				else if(squares[3]==1)
+				{
+					squares[8]=2;
+					option2=9;
+					repaint();
+				}
+				else if(squares[5]==1)
+				{
+					squares[8]=2;
+					option2=10;
+					repaint();
+				}
+				else if(squares[7]==1)
+				{
+					squares[0]=2;
+					option2=11;
+					repaint();
+				}
+				else if(squares[8]==1)
+				{
+					squares[5]=2;
+					option2=12;
+					repaint();
+				}
 			}
-			else if(squares[6]==1&&squares[7]==1&&squares[8]==1)
+			if(option==2)
 			{
-				win=true;
-
+				if(squares[0]==1)
+				{
+					squares[3]=2;
+					option2=13;
+					repaint();
+				}
+				if(squares[1]==1)
+				{
+					squares[8]=2;
+					option2=14;
+					repaint();
+				}
+				if(squares[3]==1)
+				{
+					squares[0]=2;
+					option2=15;
+					repaint();
+				}
+				if(squares[5]==1)
+				{
+					squares[0]=2;
+					option2=16;
+					repaint();
+				}
+				if(squares[7]==1)
+				{
+					squares[8]=2;
+					option2=17;
+					repaint();
+				}
+				if(squares[8]==1)
+				{
+					squares[7]=2;
+					option2=18;
+					repaint();
+				}
 			}
-			else if(squares[0]==1&&squares[3]==1&&squares[6]==1)
+			if(option==3)
 			{
-				win=true;
-
-			}
-			else if(squares[1]==1&&squares[4]==1&&squares[7]==1)
-			{
-				win=true;
-
-			}
-			else if(squares[2]==1&&squares[5]==1&&squares[8]==1)
-			{
-				win=true;
-
-			}
-			else if(squares[0]==1&&squares[4]==1&&squares[8]==1)
-			{
-				win=true;
-
-			}
-			else if(squares[2]==1&&squares[4]==1&&squares[6]==1)
-			{
-				win=true;
-
+				if(squares[1]==1)
+				{
+					squares[6]=2;
+					option2=19;
+					repaint();
+				}
+				if(squares[2]==1)
+				{
+					squares[5]=2;
+					option2=20;
+					repaint();
+				}
+				else if(squares[3]==1)
+				{
+					squares[2]=2;
+					option2=21;
+					repaint();
+				}
+				else if(squares[5]==1)
+				{
+					squares[2]=2;
+					option2=22;
+					repaint();
+				}
+				else if(squares[6]==1)
+				{
+					squares[7]=2;
+					option2=23;
+					repaint();
+				}
+				else if(squares[7]==1)
+				{
+					squares[6]=2;
+					option2=24;
+					repaint();
+				}
 			}
 		}
-		if(state==2)
-		{//test for computer win cases. X's
-			if(squares[0]==2&&squares[1]==2&&squares[2]==2)
+
+	}
+	public void turn7()
+	{
+		turn++;
+		sleep(1000);
+		offenseTest();
+		if(moved==false)
+		{
+			if(option2==1)
 			{
-				win=true;
+				if(squares[6]==1)
+				{
+					squares[5]=2;
+				}	
+				else if(squares[5]==1)
+				{
+					squares[6]=2;
+				}
+				else if(squares[5]!=1&&squares[6]!=1)
+				{
+					test=r.nextInt(2);
+					if(test==0)
+					{
+						squares[5]=2;
+					}
+					else if(test==1)
+						squares[6]=2;
+				}
 
 			}
-			else if(squares[3]==2&&squares[4]==2&&squares[5]==2)
+			if(option2==2)
 			{
-				win=true;
+				if(squares[7]!=1)
+				{
+					squares[7]=2;
+				}
+				else if(squares[7]==1)
+				{
+					squares[5]=2;
+				}
+			}
+			if(option2==3)
+			{
+				if(squares[2]==1)
+				{
+					squares[7]=2;
+				}	
+				else if(squares[7]==1)
+				{
+					squares[2]=2;
+				}
+				else if(squares[2]!=1&&squares[7]!=1)
+				{
+					test=r.nextInt(2);
+					if(test==0)
+					{
+						squares[2]=2;
+					}
+					else if(test==1)
+						squares[7]=2;
+				}
+			}
+			if(option2==4)
+			{
+				if(squares[2]==1)
+				{
+					squares[7]=2;
+				}	
+				else if(squares[7]==1)
+				{
+					squares[2]=2;
+				}
+				else if(squares[2]!=1&&squares[7]!=1)
+				{
+					test=r.nextInt(2);
+					if(test==0)
+					{
+						squares[2]=2;
+					}
+					else if(test==1)
+						squares[7]=2;
+				}
 
 			}
-			else if(squares[6]==2&&squares[7]==2&&squares[8]==2)
+			if(option2==5)
+			{
+				if(squares[5]!=1)
+				{
+					squares[5]=2;
+				}
+				else if(squares[5]==1)
+				{
+					squares[7]=2;
+				}
+			}
+			if(option2==6)
+			{
+				if(squares[5]==1)
+				{
+					squares[6]=2;
+				}	
+				else if(squares[6]==1)
+				{
+					squares[5]=2;
+				}
+				else if(squares[5]!=1&&squares[6]!=1)
+				{
+					test=r.nextInt(2);
+					if(test==0)
+					{
+						squares[5]=2;
+					}
+					else if(test==1)
+						squares[6]=2;
+				}
+			}
+			if(option2==7)
+			{
+				if(squares[7]!=1)
+				{
+					squares[7]=2;
+				}
+				else if(squares[7]==1)
+				{
+					squares[3]=2;
+				}
+			}
+			if(option2==8)
+			{
+				if(squares[3]==1)
+				{
+					squares[8]=2;
+				}	
+				else if(squares[8]==1)
+				{
+					squares[3]=2;
+				}
+				else if(squares[3]!=1&&squares[8]!=1)
+				{
+					test=r.nextInt(2);
+					if(test==0)
+					{
+						squares[8]=2;
+					}
+					else if(test==1)
+						squares[3]=2;
+				}
+			}
+			if(option2==9)
+			{
+				if(squares[0]==1)
+				{
+					squares[7]=2;
+				}	
+				else if(squares[7]==1)
+				{
+					squares[0]=2;
+				}
+				else if(squares[0]!=1&&squares[7]!=1)
+				{
+					test=r.nextInt(2);
+					if(test==0)
+					{
+						squares[5]=0;
+					}
+					else if(test==1)
+						squares[6]=7;
+				}
+			}
+			if(option2==10)
+			{
+				if(squares[0]==1)
+				{
+					squares[7]=2;
+				}	
+				else if(squares[7]==1)
+				{
+					squares[0]=2;
+				}
+				else if(squares[0]!=1&&squares[7]!=1)
+				{
+					test=r.nextInt(2);
+					if(test==0)
+					{
+						squares[0]=2;
+					}
+					else if(test==1)
+						squares[7]=2;
+				}
+			}
+			if(option2==11)
+			{
+				if(squares[3]==1)
+				{
+					squares[8]=2;
+				}	
+				else if(squares[8]==1)
+				{
+					squares[3]=2;
+				}
+				else if(squares[3]!=1&&squares[8]!=1)
+				{
+					test=r.nextInt(2);
+					if(test==0)
+					{
+						squares[3]=2;
+					}
+					else if(test==1)
+						squares[8]=2;
+				}
+			}
+			if(option2==12)
+			{
+				if(squares[3]!=1)
+				{
+					squares[3]=2;
+				}
+				else if(squares[3]==1)
+				{
+					squares[7]=2;
+				}
+			}
+			if(option2==13)
+			{
+				if(squares[5]!=1)
+				{
+					squares[5]=2;
+				}
+				else if(squares[5]==1)
+				{
+					squares[1]=2;
+				}
+			}
+			if(option2==14)
+			{
+				if(squares[0]==1)
+				{
+					squares[8]=2;
+				}	
+				else if(squares[8]==1)
+				{
+					squares[0]=2;
+				}
+				else if(squares[0]!=1&&squares[8]!=1)
+				{
+					test=r.nextInt(2);
+					if(test==0)
+					{
+						squares[0]=2;
+					}
+					else if(test==1)
+						squares[8]=2;
+				}
+			}
+			if(option2==15)
+			{
+
+				if(squares[1]==1)
+				{
+					squares[8]=2;
+				}	
+				else if(squares[8]==1)
+				{
+					squares[1]=2;
+				}
+				else if(squares[1]!=1&&squares[8]!=1)
+				{
+					test=r.nextInt(2);
+					if(test==0)
+					{
+						squares[1]=2;
+					}
+					else if(test==1)
+						squares[8]=2;
+				}
+			}
+			if(option2==16)
+			{
+				if(squares[1]==1)
+				{
+					squares[8]=2;
+				}	
+				else if(squares[8]==1)
+				{
+					squares[1]=2;
+				}
+				else if(squares[1]!=1&&squares[8]!=1)
+				{
+					test=r.nextInt(2);
+					if(test==0)
+					{
+						squares[1]=2;
+					}
+					else if(test==1)
+						squares[8]=2;
+				}
+			}
+			if(option2==17)
+			{
+				if(squares[0]==1)
+				{
+					squares[5]=2;
+				}	
+				else if(squares[5]==1)
+				{
+					squares[0]=2;
+				}
+				else if(squares[0]!=1&&squares[5]!=1)
+				{
+					test=r.nextInt(2);
+					if(test==0)
+					{
+						squares[0]=2;
+					}
+					else if(test==1)
+						squares[5]=2;
+				}
+			}
+			if(option2==18)
+			{
+				if(squares[1]!=1)
+				{
+					squares[1]=2;
+				}
+				else if(squares[1]==1)
+				{
+					squares[5]=2;
+				}
+			}
+			if(option2==19)
+			{
+				if(squares[2]==1)
+				{
+					squares[3]=2;
+				}	
+				else if(squares[3]==1)
+				{
+					squares[2]=2;
+				}
+				else if(squares[2]!=1&&squares[3]!=1)
+				{
+					test=r.nextInt(2);
+					if(test==0)
+					{
+						squares[2]=2;
+					}
+					else if(test==1)
+						squares[3]=2;
+				}
+			}
+			if(option2==20)
+			{
+				if(squares[3]!=1)
+				{
+					squares[3]=2;
+				}
+				else if(squares[3]==1)
+				{
+					squares[1]=2;
+				}
+			}
+			if(option2==21)
+			{
+				if(squares[1]==1)
+				{
+					squares[6]=2;
+				}	
+				else if(squares[6]==1)
+				{
+					squares[1]=2;
+				}
+				else if(squares[1]!=1&&squares[6]!=1)
+				{
+					test=r.nextInt(2);
+					if(test==0)
+					{
+						squares[1]=2;
+					}
+					else if(test==1)
+						squares[6]=2;
+				}
+			}
+			if(option2==22)
+			{
+				if(squares[1]==1)
+				{
+					squares[6]=2;
+				}	
+				else if(squares[6]==1)
+				{
+					squares[1]=2;
+				}
+				else if(squares[1]!=1&&squares[6]!=1)
+				{
+					test=r.nextInt(2);
+					if(test==0)
+					{
+						squares[1]=2;
+					}
+					else if(test==1)
+						squares[6]=2;
+				}
+			}
+			if(option2==23)
+			{
+				if(squares[1]!=1)
+				{
+					squares[1]=2;
+				}
+				else if(squares[1]==1)
+				{
+					squares[3]=2;
+				}
+			}
+			if(option2==24)
+			{
+				if(squares[2]==1)
+				{
+					squares[3]=2;
+				}	
+				else if(squares[3]==1)
+				{
+					squares[2]=2;
+				}
+				else if(squares[2]!=1&&squares[3]!=1)
+				{
+					test=r.nextInt(2);
+					if(test==0)
+					{
+						squares[2]=2;
+					}
+					else if(test==1)
+						squares[3]=2;
+				}
+			}
+		}
+		repaint();
+	}
+	public void turn9()
+	{
+		sleep(1000);
+		turn++;
+		for(int i=0;i<squares.length;i++)
+		{
+			if(squares[i]==0)
+			{
+				squares[i]=2;
+			}
+		}
+		repaint();
+	}
+	
+	public void winTest()//algorithms to see who won
+	{
+		//test to see if the computer won. O's
+		{
+			for(int i=0;i<7;i+=3)
+			{
+				if(squares[i]==state&&squares[i+1]==state&&squares[i+2]==state)
+				{
+				win=true;	
+				}
+			}
+			for(int i=0;i<3;i++)
+			{
+				if(squares[i]==state&&squares[i+3]==state&&squares[i+6]==state)
+				{
+				win=true;	
+				}
+			}
+			if(squares[0]==state&&squares[4]==state&&squares[8]==state)
 			{
 				win=true;
-
 			}
-			else if(squares[0]==2&&squares[3]==2&&squares[6]==2)
+			else if(squares[2]==state&&squares[4]==state&&squares[6]==state)
 			{
 				win=true;
-
 			}
-			else if(squares[1]==2&&squares[4]==2&&squares[7]==2)
-			{
-				win=true;
-
-			}
-			else if(squares[2]==2&&squares[5]==2&&squares[8]==2)
-			{
-				win=true;
-
-			}
-			else if(squares[0]==2&&squares[4]==2&&squares[8]==2)
-			{
-				win=true;
-
-			}
-			else if(squares[2]==2&&squares[4]==2&&squares[6]==2)
-			{
-				win=true;
-
-			}
+		
+		
 		}
 		if(win!=true&&turn==10)//tests for a tie case
 		{
@@ -1369,306 +1312,128 @@ public class TicTacToe extends JApplet implements MouseListener{
 		}
 
 	}
-
-
-
-
-
 	public void offenseTest()//checks for winning move and takes if possible
 	{
-		if(state==1)
+
+		if(squares[0]==state&&squares[1]==state&&squares[2]==0)		
 		{
-			if(squares[0]==1&&squares[1]==1&&squares[2]==0)		
-			{
-				squares[2]=1;
-				moved=true;
-				repaint();
-			}
-			else if(squares[2]==1&&squares[1]==1&&squares[0]==0)		
-			{
-				squares[0]=1;
-				moved=true;
-				repaint();
-			}
-			else if(squares[0]==1&&squares[2]==1&&squares[1]==0)		
-			{
-				squares[1]=1;
-				moved=true;
-				repaint();
-			}
-			else if(squares[3]==1&&squares[4]==1&&squares[5]==0)		
-			{
-				squares[5]=1;
-				moved=true;
-				repaint();
-			}
-			else if(squares[5]==1&&squares[4]==1&&squares[3]==0)		
-			{
-				squares[3]=1;
-				moved=true;
-				repaint();
-			}
-			else if(squares[3]==1&&squares[5]==1&&squares[4]==0)		
-			{
-				squares[4]=1;
-				moved=true;
-				repaint();
-			}
-			else if(squares[6]==1&&squares[7]==1&&squares[8]==0)		
-			{
-				squares[8]=1;
-				moved=true;
-				repaint();
-			}
-			else if(squares[8]==1&&squares[7]==1&&squares[6]==0)		
-			{
-				squares[6]=1;
-				moved=true;
-				repaint();
-			}
-			else if(squares[6]==1&&squares[8]==1&&squares[7]==0)		
-			{
-				squares[7]=1;
-				moved=true;
-				repaint();
-			}
-			else if(squares[0]==1&&squares[3]==1&&squares[6]==0)		
-			{
-				squares[6]=1;
-				moved=true;
-				repaint();
-			}
-			else if(squares[6]==1&&squares[3]==1&&squares[0]==0)		
-			{
-				squares[0]=1;
-				moved=true;
-				repaint();
-			}
-			else if(squares[6]==1&&squares[0]==1&&squares[3]==0)		
-			{
-				squares[3]=1;
-				moved=true;
-				repaint();
-			}
-			else if(squares[1]==1&&squares[4]==1&&squares[7]==0)		
-			{
-				squares[7]=1;
-				moved=true;
-				repaint();
-			}
-			else if(squares[1]==1&&squares[7]==1&&squares[4]==0)		
-			{
-				squares[4]=1;
-				moved=true;
-				repaint();
-			}
-			else if(squares[7]==1&&squares[4]==1&&squares[1]==0)		
-			{
-				squares[1]=1;
-				moved=true;
-				repaint();
-			}
-			else if(squares[2]==1&&squares[5]==1&&squares[8]==0)		
-			{
-				squares[8]=1;
-				moved=true;
-				repaint();
-			}
-			else if(squares[8]==1&&squares[5]==1&&squares[2]==0)		
-			{
-				squares[2]=1;
-				moved=true;
-				repaint();
-			}
-			else if(squares[8]==1&&squares[2]==1&&squares[5]==0)		
-			{
-				squares[5]=1;
-				moved=true;
-				repaint();
-			}
-			else if(squares[0]==1&&squares[4]==1&&squares[8]==0)		
-			{
-				squares[8]=1;
-				moved=true;
-				repaint();
-			}
-			else if(squares[8]==1&&squares[4]==1&&squares[0]==0)		
-			{
-				squares[0]=1;
-				moved=true;
-				repaint();
-			}
-			else if(squares[0]==1&&squares[8]==1&&squares[4]==0)		
-			{
-				squares[4]=1;
-				moved=true;
-				repaint();
-			}
-			else if(squares[2]==1&&squares[4]==1&&squares[6]==0)		
-			{
-				squares[6]=1;
-				moved=true;
-				repaint();
-			}
-			else if(squares[6]==1&&squares[4]==1&&squares[2]==0)		
-			{
-				squares[2]=1;
-				moved=true;
-				repaint();
-			}
-			else if(squares[6]==1&&squares[2]==1&&squares[4]==0)		
-			{
-				squares[4]=1;
-				moved=true;
-				repaint();
-			}
+			squares[2]=state;
+			movedSet();
 		}
-		if(state==2)
+		else if(squares[2]==state&&squares[1]==state&&squares[0]==0)		
 		{
-			if(squares[0]==2&&squares[1]==2&&squares[2]==0)		
-			{
-				squares[2]=2;
-				moved=true;
-				repaint();
-			}
-			else if(squares[2]==2&&squares[1]==2&&squares[0]==0)		
-			{
-				squares[0]=2;
-				moved=true;
-				repaint();
-			}
-			else if(squares[0]==2&&squares[2]==2&&squares[1]==0)		
-			{
-				squares[1]=2;
-				moved=true;
-				repaint();
-			}
-			else if(squares[3]==2&&squares[4]==2&&squares[5]==0)		
-			{
-				squares[5]=2;
-				moved=true;
-				repaint();
-			}
-			else if(squares[5]==2&&squares[4]==2&&squares[3]==0)		
-			{
-				squares[3]=2;
-				moved=true;
-				repaint();
-			}
-			else if(squares[3]==2&&squares[5]==2&&squares[4]==0)		
-			{
-				squares[4]=2;
-				moved=true;
-				repaint();
-			}
-			else if(squares[6]==2&&squares[7]==2&&squares[8]==0)		
-			{
-				squares[8]=2;
-				moved=true;
-				repaint();
-			}
-			else if(squares[8]==2&&squares[7]==2&&squares[6]==0)		
-			{
-				squares[6]=2;
-				moved=true;
-				repaint();
-			}
-			else if(squares[6]==2&&squares[8]==2&&squares[7]==0)		
-			{
-				squares[7]=2;
-				moved=true;
-				repaint();
-			}
-			else if(squares[0]==2&&squares[3]==2&&squares[6]==0)		
-			{
-				squares[6]=2;
-				moved=true;
-				repaint();
-			}
-			else if(squares[6]==2&&squares[3]==2&&squares[0]==0)		
-			{
-				squares[0]=2;
-				moved=true;
-				repaint();
-			}
-			else if(squares[6]==2&&squares[0]==2&&squares[3]==0)		
-			{
-				squares[3]=2;
-				moved=true;
-				repaint();
-			}
-			else if(squares[1]==2&&squares[4]==2&&squares[7]==0)		
-			{
-				squares[7]=2;
-				moved=true;
-				repaint();
-			}
-			else if(squares[1]==2&&squares[7]==2&&squares[4]==0)		
-			{
-				squares[4]=2;
-				moved=true;
-				repaint();
-			}
-			else if(squares[7]==2&&squares[4]==2&&squares[1]==0)		
-			{
-				squares[1]=2;
-				moved=true;
-				repaint();
-			}
-			else if(squares[2]==2&&squares[5]==2&&squares[8]==0)		
-			{
-				squares[8]=2;
-				moved=true;
-				repaint();
-			}
-			else if(squares[8]==2&&squares[5]==2&&squares[2]==0)		
-			{
-				squares[2]=2;
-				moved=true;
-				repaint();
-			}
-			else if(squares[8]==2&&squares[2]==2&&squares[5]==0)		
-			{
-				squares[5]=2;
-				moved=true;
-				repaint();
-			}
-			else if(squares[0]==2&&squares[4]==2&&squares[8]==0)		
-			{
-				squares[8]=2;
-				moved=true;
-				repaint();
-			}
-			else if(squares[8]==2&&squares[4]==2&&squares[0]==0)		
-			{
-				squares[0]=2;
-				moved=true;
-				repaint();
-			}
-			else if(squares[0]==2&&squares[8]==2&&squares[4]==0)		
-			{
-				squares[4]=2;
-				moved=true;
-				repaint();
-			}
-			else if(squares[2]==2&&squares[4]==2&&squares[6]==0)		
-			{
-				squares[6]=2;
-				moved=true;
-				repaint();
-			}
-			else if(squares[6]==2&&squares[4]==2&&squares[2]==0)		
-			{
-				squares[2]=2;
-				moved=true;
-				repaint();
-			}
-			else if(squares[6]==2&&squares[2]==2&&squares[4]==0)		
-			{
-				squares[4]=2;
-				moved=true;
-				repaint();
-			}
+			squares[0]=state;
+			movedSet();
+		}
+		else if(squares[0]==state&&squares[2]==state&&squares[1]==0)		
+		{
+			squares[1]=state;
+			movedSet();
+		}
+		else if(squares[3]==state&&squares[4]==state&&squares[5]==0)		
+		{
+			squares[5]=state;
+			movedSet();
+		}
+		else if(squares[5]==state&&squares[4]==state&&squares[3]==0)		
+		{
+			squares[3]=state;
+			movedSet();
+		}
+		else if(squares[3]==state&&squares[5]==state&&squares[4]==0)		
+		{
+			squares[4]=state;
+			movedSet();
+		}
+		else if(squares[6]==state&&squares[7]==state&&squares[8]==0)		
+		{
+			squares[8]=state;
+			movedSet();
+		}
+		else if(squares[8]==state&&squares[7]==state&&squares[6]==0)		
+		{
+			squares[6]=state;
+			movedSet();
+		}
+		else if(squares[6]==state&&squares[8]==state&&squares[7]==0)		
+		{
+			squares[7]=state;
+			movedSet();
+		}
+		else if(squares[0]==state&&squares[3]==state&&squares[6]==0)		
+		{
+			squares[6]=state;
+			movedSet();
+		}
+		else if(squares[6]==state&&squares[3]==state&&squares[0]==0)		
+		{
+			squares[0]=state;
+			movedSet();
+		}
+		else if(squares[6]==state&&squares[0]==state&&squares[3]==0)		
+		{
+			squares[3]=state;
+			movedSet();
+		}
+		else if(squares[1]==state&&squares[4]==state&&squares[7]==0)		
+		{
+			squares[7]=state;
+			movedSet();
+		}
+		else if(squares[1]==state&&squares[7]==state&&squares[4]==0)		
+		{
+			squares[4]=state;
+			movedSet();
+		}
+		else if(squares[7]==state&&squares[4]==state&&squares[1]==0)		
+		{
+			squares[1]=state;
+			movedSet();
+		}
+		else if(squares[2]==state&&squares[5]==state&&squares[8]==0)		
+		{
+			squares[8]=state;
+			movedSet();
+		}
+		else if(squares[8]==state&&squares[5]==state&&squares[2]==0)		
+		{
+			squares[2]=state;
+			movedSet();
+		}
+		else if(squares[8]==state&&squares[2]==state&&squares[5]==0)		
+		{
+			squares[5]=state;
+			movedSet();
+		}
+		else if(squares[0]==state&&squares[4]==state&&squares[8]==0)		
+		{
+			squares[8]=state;
+			movedSet();
+		}
+		else if(squares[8]==state&&squares[4]==state&&squares[0]==0)		
+		{
+			squares[0]=state;
+			movedSet();
+		}
+		else if(squares[0]==state&&squares[8]==state&&squares[4]==0)		
+		{
+			squares[4]=state;
+			movedSet();
+		}
+		else if(squares[2]==state&&squares[4]==state&&squares[6]==0)		
+		{
+			squares[6]=state;
+			movedSet();
+		}
+		else if(squares[6]==state&&squares[4]==state&&squares[2]==0)		
+		{
+			squares[2]=state;
+			movedSet();
+		}
+		else if(squares[6]==state&&squares[2]==state&&squares[4]==0)		
+		{
+			squares[4]=state;
+			movedSet();
 		}
 	}
 	public void defenseTest()//checks for losing move and blocks
@@ -1678,152 +1443,138 @@ public class TicTacToe extends JApplet implements MouseListener{
 			if(squares[0]==2&&squares[1]==2&&squares[2]==0)		
 			{
 				squares[2]=1;
-				moved=true;
-				repaint();
+				movedSet();
 			}
 			else if(squares[2]==2&&squares[1]==2&&squares[0]==0)		
 			{
 				squares[0]=1;
-				moved=true;
-				repaint();
+				movedSet();
 			}
 			else if(squares[0]==2&&squares[2]==2&&squares[1]==0)		
 			{
 				squares[1]=1;
-				moved=true;
-				repaint();
+				movedSet();
 			}
 			else if(squares[3]==2&&squares[4]==2&&squares[5]==0)		
 			{
 				squares[5]=1;
-				moved=true;
-				repaint();
+				movedSet();
 			}
 			else if(squares[5]==2&&squares[4]==2&&squares[3]==0)		
 			{
 				squares[3]=1;
-				moved=true;
-				repaint();
+				movedSet();
 			}
 			else if(squares[3]==2&&squares[5]==2&&squares[4]==0)		
 			{
 				squares[4]=1;
-				moved=true;
-				repaint();
+				movedSet();
 			}
 			else if(squares[6]==2&&squares[7]==2&&squares[8]==0)		
 			{
 				squares[8]=1;
-				moved=true;
-				repaint();
+				movedSet();
 			}
 			else if(squares[8]==2&&squares[7]==2&&squares[6]==0)		
 			{
 				squares[6]=1;
-				moved=true;
-				repaint();
+				movedSet();
 			}
 			else if(squares[6]==2&&squares[8]==2&&squares[7]==0)		
 			{
 				squares[7]=1;
-				moved=true;
-				repaint();
+				movedSet();
 			}
 			else if(squares[0]==2&&squares[3]==2&&squares[6]==0)		
 			{
 				squares[6]=1;
-				moved=true;
-				repaint();
+				movedSet();
 			}
 			else if(squares[6]==2&&squares[3]==2&&squares[0]==0)		
 			{
 				squares[0]=1;
-				moved=true;
-				repaint();
+				movedSet();
 			}
 			else if(squares[6]==2&&squares[0]==2&&squares[3]==0)		
 			{
 				squares[3]=1;
-				moved=true;
-				repaint();
+				movedSet();
 			}
 			else if(squares[1]==2&&squares[4]==2&&squares[7]==0)		
 			{
 				squares[7]=1;
-				moved=true;
-				repaint();
+				movedSet();
 			}
 			else if(squares[1]==2&&squares[7]==2&&squares[4]==0)		
 			{
 				squares[4]=1;
-				moved=true;
-				repaint();
+				movedSet();
 			}
 			else if(squares[7]==2&&squares[4]==2&&squares[1]==0)		
 			{
 				squares[1]=1;
-				moved=true;
-				repaint();
+				movedSet();
 			}
 			else if(squares[2]==2&&squares[5]==2&&squares[8]==0)		
 			{
 				squares[8]=1;
-				moved=true;
-				repaint();
+				movedSet();
 			}
 			else if(squares[8]==2&&squares[5]==2&&squares[2]==0)		
 			{
 				squares[2]=1;
-				moved=true;
-				repaint();
+				movedSet();
 			}
 			else if(squares[8]==2&&squares[2]==2&&squares[5]==0)		
 			{
 				squares[5]=1;
-				moved=true;
-				repaint();
+				movedSet();
 			}
 			else if(squares[0]==2&&squares[4]==2&&squares[8]==0)		
 			{
 				squares[8]=1;
-				moved=true;
-				repaint();
+				movedSet();
 			}
 			else if(squares[8]==2&&squares[4]==2&&squares[0]==0)		
 			{
 				squares[0]=1;
-				moved=true;
-				repaint();
+				movedSet();
 			}
 			else if(squares[0]==2&&squares[8]==2&&squares[4]==0)		
 			{
 				squares[4]=1;
-				moved=true;
+				movedSet();
 			}
 			else if(squares[2]==2&&squares[4]==2&&squares[6]==0)		
 			{
 				squares[6]=1;
-				moved=true;
-				repaint();
+				movedSet();
 			}
 			else if(squares[6]==2&&squares[4]==2&&squares[2]==0)		
 			{
 				squares[2]=1;
-				moved=true;
-				repaint();
+				movedSet();
 			}
 			else if(squares[6]==2&&squares[2]==2&&squares[4]==0)		
 			{
 				squares[4]=1;
-				moved=true;
-				repaint();
+				movedSet();
 			}
 		}
 	}
-
+	public void movedSet()
+	{
+		moved=true;
+		repaint();
+	}
+	public void sleep(int sleepTime)
+	{
+		try {
+			Thread.sleep(sleepTime);
+		} catch (InterruptedException e) {
+		}
+	}
 	public void mousePressed(MouseEvent arg0) {
-
-
 		if(state==0)
 		{	
 			//activates the play button
@@ -1845,8 +1596,6 @@ public class TicTacToe extends JApplet implements MouseListener{
 				System.exit(0);
 			}
 		}
-
-
 		else if(state==1)
 		{
 			//adds to the score of the game
@@ -1871,7 +1620,7 @@ public class TicTacToe extends JApplet implements MouseListener{
 					repaint();
 				}
 			}
-			if((turn==1||turn==3||turn==5||turn==7||turn==9)&&win==false)
+			if(turn%2==1&&win==false)
 			{	//does the moves according to the box area pressed as human
 				if((int) (arg0.getPoint().x) < 100 && arg0.getPoint().y < 100&&squares[0]==0)
 				{
@@ -1953,7 +1702,7 @@ public class TicTacToe extends JApplet implements MouseListener{
 					repaint();
 				}
 			}
-			if((turn==2||turn==4||turn==6||turn==8)&&win==false)
+			if(turn%2==0&&win==false)
 			{	//does the moves according to the box area pressed as human
 				if((int) (arg0.getPoint().x) < 100 && arg0.getPoint().y < 100&&squares[0]==0)
 				{
@@ -2032,41 +1781,15 @@ public class TicTacToe extends JApplet implements MouseListener{
 			}
 		}
 	}
-
-
 	public void mouseClicked(MouseEvent arg0) {
-
 	}
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
 	}
-
-
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
 	}
-
-
-
-
-
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
 	}
-
-
-
-
 }
-
-
-
-
-
-
