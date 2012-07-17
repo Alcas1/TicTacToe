@@ -21,7 +21,7 @@ public class TicTacToe extends JApplet implements MouseListener{
 	Font PlayText=new Font("Play",Font.BOLD,35);
 	Font QuitText=new Font("Quit",Font.ITALIC,20);
 	public int turn=1; 
-	public int test=0;//A universal variable to test random integers with
+	public int randomTest=0;//A universal variable to test random integers with
 	public int option=0;//for the options of turn 2
 	public int option2=0;//for the options of turns after that
 	public int gameState=0;
@@ -361,26 +361,26 @@ public class TicTacToe extends JApplet implements MouseListener{
 		}
 		else if(box[4]==2)
 		{
-			test=r.nextInt(4);
-			if(test==0)
+			randomTest=r.nextInt(4);
+			if(randomTest==0)
 			{
 				box[0]=1;
 				option=1;
 				repaint();
 			}
-			else if(test==1)
+			else if(randomTest==1)
 			{
 				box[2]=1;
 				option=2;
 				repaint();
 			}
-			else if(test==2)
+			else if(randomTest==2)
 			{
 				box[6]=1;
 				option=3;
 				repaint();
 			}
-			else if(test==3)
+			else if(randomTest==3)
 			{
 				box[8]=1;
 				option=4;
@@ -400,91 +400,91 @@ public class TicTacToe extends JApplet implements MouseListener{
 				if(box[3]==2&&box[2]==2)
 				{
 					box[0]=1;
-					movedSet();
+					moveSet();
 				}
 				else if(box[1]==2&&box[6]==2)
 				{
 					box[0]=1;
-					movedSet();
+					moveSet();
 				}
 				else if(box[3]==2&&box[8]==2)
 				{
 					box[0]=1;
-					movedSet();
+					moveSet();
 				}
 				else if(box[1]==2&&box[8]==2)
 				{
 					box[0]=1;
-					movedSet();
+					moveSet();
 				}
 				else if(box[0]==2&&box[8]==2)
 				{
-					test=r.nextInt(4);
-					if(test==0)
+					randomTest=r.nextInt(4);
+					if(randomTest==0)
 					{
 						box[1]=1;
-						movedSet();
+						moveSet();
 					}
-					else if(test==1)
+					else if(randomTest==1)
 					{						
 						box[3]=1;
-						movedSet();
+						moveSet();
 					}
-					else if(test==2)
+					else if(randomTest==2)
 					{
 						box[5]=1;
 						repaint();
 					}
-					else if(test==3)
+					else if(randomTest==3)
 					{					
 						box[7]=1;
-						movedSet();
+						moveSet();
 					}	
 				}
 				else if(box[2]==2&&box[6]==2)
 				{
-					test=r.nextInt(4);
-					if(test==0)
+					randomTest=r.nextInt(4);
+					if(randomTest==0)
 					{
 						box[1]=1;
-						movedSet();
+						moveSet();
 					}
-					else if(test==1)
+					else if(randomTest==1)
 					{					
 						box[3]=1;
-						movedSet();
+						moveSet();
 					}
-					else if(test==2)
+					else if(randomTest==2)
 					{
 						box[5]=1;
-						movedSet();
+						moveSet();
 					}
-					else if(test==3)
+					else if(randomTest==3)
 					{
 						
 						box[7]=1;
-						movedSet();
+						moveSet();
 					}	
 				}
 				else if(box[1]==2&&box[3]==2)
 				{
 				box[0]=1;
-				movedSet();
+				moveSet();
 				}
 				else if(box[1]==2&&box[5]==2)
 				{
 				box[2]=1;
-				movedSet();
+				moveSet();
 				}
 				else if(box[3]==2&&box[7]==2)
 				{
 				box[6]=1;
-				movedSet();
+				moveSet();
 				}
 				else if(box[7]==2&&box[5]==2)
 				{
 				box[8]=1;
-				movedSet();
+				moveSet();
 				}
 			}
 			if(option==1)
@@ -492,7 +492,7 @@ public class TicTacToe extends JApplet implements MouseListener{
 				if(box[8]==2)
 				{
 					box[2]=1;
-					movedSet();
+					moveSet();
 				}
 			}
 			if(option==2)
@@ -500,7 +500,7 @@ public class TicTacToe extends JApplet implements MouseListener{
 				if(box[6]==2)
 				{
 					box[0]=1;
-					movedSet();
+					moveSet();
 				}
 			}
 			if(option==3)
@@ -508,7 +508,7 @@ public class TicTacToe extends JApplet implements MouseListener{
 				if(box[2]==2)
 				{
 					box[8]=1;
-					movedSet();
+					moveSet();
 				}
 			}
 			if(option==4)
@@ -516,20 +516,20 @@ public class TicTacToe extends JApplet implements MouseListener{
 				if(box[0]==2)
 				{					
 					box[6]=1;
-					movedSet();
+					moveSet();
 				}
 			}
 			if(moved==false)
 			{
-				test=0;
+				randomTest=0;
 				for(int i=0;i<box.length;i++)
 				{
 					if(box[i]==0)
 					{
-						test=i;
+						randomTest=i;
 					}
 				}
-				box[test]=1;
+				box[randomTest]=1;
 				repaint();
 			}
 		}
@@ -542,15 +542,15 @@ public class TicTacToe extends JApplet implements MouseListener{
 		defenseTest();
 		if(moved==false)
 		{
-			test=0;
+			randomTest=0;
 			for(int i=0;i<box.length;i++)
 			{
 				if(box[i]==0)
 				{
-					test=i;
+					randomTest=i;
 				}
 			}
-			box[test]=1;
+			box[randomTest]=1;
 			repaint();
 		}
 	}
@@ -562,15 +562,15 @@ public class TicTacToe extends JApplet implements MouseListener{
 		defenseTest();
 		if(moved==false)
 		{
-			test=0;
+			randomTest=0;
 			for(int i=0;i<box.length;i++)
 			{
 				if(box[i]==0)
 				{
-					test=i;
+					randomTest=i;
 				}
 			}
-			box[test]=1;
+			box[randomTest]=1;
 			repaint();
 		}
 	}
@@ -610,26 +610,26 @@ public class TicTacToe extends JApplet implements MouseListener{
 		}
 		else
 		{
-			test=r.nextInt(4);
-			if(test==0)
+			randomTest=r.nextInt(4);
+			if(randomTest==0)
 			{
 				box[8]=2;
 				option=0;
 				repaint();
 			}
-			else if(test==1)
+			else if(randomTest==1)
 			{
 				box[6]=2;
 				option=1;
 				repaint();
 			}
-			else if(test==2)
+			else if(randomTest==2)
 			{
 				box[2]=2;
 				option=2;
 				repaint();
 			}
-			else if(test==3)
+			else if(randomTest==3)
 			{
 				box[0]=2;
 				option=3;
@@ -824,12 +824,12 @@ public class TicTacToe extends JApplet implements MouseListener{
 				}
 				else if(box[5]!=1&&box[6]!=1)
 				{
-					test=r.nextInt(2);
-					if(test==0)
+					randomTest=r.nextInt(2);
+					if(randomTest==0)
 					{
 						box[5]=2;
 					}
-					else if(test==1)
+					else if(randomTest==1)
 						box[6]=2;
 				}
 			}
@@ -856,12 +856,12 @@ public class TicTacToe extends JApplet implements MouseListener{
 				}
 				else if(box[2]!=1&&box[7]!=1)
 				{
-					test=r.nextInt(2);
-					if(test==0)
+					randomTest=r.nextInt(2);
+					if(randomTest==0)
 					{
 						box[2]=2;
 					}
-					else if(test==1)
+					else if(randomTest==1)
 						box[7]=2;
 				}
 			}
@@ -877,12 +877,12 @@ public class TicTacToe extends JApplet implements MouseListener{
 				}
 				else if(box[2]!=1&&box[7]!=1)
 				{
-					test=r.nextInt(2);
-					if(test==0)
+					randomTest=r.nextInt(2);
+					if(randomTest==0)
 					{
 						box[2]=2;
 					}
-					else if(test==1)
+					else if(randomTest==1)
 						box[7]=2;
 				}
 			}
@@ -909,12 +909,12 @@ public class TicTacToe extends JApplet implements MouseListener{
 				}
 				else if(box[5]!=1&&box[6]!=1)
 				{
-					test=r.nextInt(2);
-					if(test==0)
+					randomTest=r.nextInt(2);
+					if(randomTest==0)
 					{
 						box[5]=2;
 					}
-					else if(test==1)
+					else if(randomTest==1)
 						box[6]=2;
 				}
 			}
@@ -941,12 +941,12 @@ public class TicTacToe extends JApplet implements MouseListener{
 				}
 				else if(box[3]!=1&&box[8]!=1)
 				{
-					test=r.nextInt(2);
-					if(test==0)
+					randomTest=r.nextInt(2);
+					if(randomTest==0)
 					{
 						box[8]=2;
 					}
-					else if(test==1)
+					else if(randomTest==1)
 						box[3]=2;
 				}
 			}
@@ -962,12 +962,12 @@ public class TicTacToe extends JApplet implements MouseListener{
 				}
 				else if(box[0]!=1&&box[7]!=1)
 				{
-					test=r.nextInt(2);
-					if(test==0)
+					randomTest=r.nextInt(2);
+					if(randomTest==0)
 					{
 						box[5]=0;
 					}
-					else if(test==1)
+					else if(randomTest==1)
 						box[6]=7;
 				}
 			}
@@ -983,12 +983,12 @@ public class TicTacToe extends JApplet implements MouseListener{
 				}
 				else if(box[0]!=1&&box[7]!=1)
 				{
-					test=r.nextInt(2);
-					if(test==0)
+					randomTest=r.nextInt(2);
+					if(randomTest==0)
 					{
 						box[0]=2;
 					}
-					else if(test==1)
+					else if(randomTest==1)
 						box[7]=2;
 				}
 			}
@@ -1004,12 +1004,12 @@ public class TicTacToe extends JApplet implements MouseListener{
 				}
 				else if(box[3]!=1&&box[8]!=1)
 				{
-					test=r.nextInt(2);
-					if(test==0)
+					randomTest=r.nextInt(2);
+					if(randomTest==0)
 					{
 						box[3]=2;
 					}
-					else if(test==1)
+					else if(randomTest==1)
 						box[8]=2;
 				}
 			}
@@ -1047,12 +1047,12 @@ public class TicTacToe extends JApplet implements MouseListener{
 				}
 				else if(box[0]!=1&&box[8]!=1)
 				{
-					test=r.nextInt(2);
-					if(test==0)
+					randomTest=r.nextInt(2);
+					if(randomTest==0)
 					{
 						box[0]=2;
 					}
-					else if(test==1)
+					else if(randomTest==1)
 						box[8]=2;
 				}
 			}
@@ -1069,12 +1069,12 @@ public class TicTacToe extends JApplet implements MouseListener{
 				}
 				else if(box[1]!=1&&box[8]!=1)
 				{
-					test=r.nextInt(2);
-					if(test==0)
+					randomTest=r.nextInt(2);
+					if(randomTest==0)
 					{
 						box[1]=2;
 					}
-					else if(test==1)
+					else if(randomTest==1)
 						box[8]=2;
 				}
 			}
@@ -1090,12 +1090,12 @@ public class TicTacToe extends JApplet implements MouseListener{
 				}
 				else if(box[1]!=1&&box[8]!=1)
 				{
-					test=r.nextInt(2);
-					if(test==0)
+					randomTest=r.nextInt(2);
+					if(randomTest==0)
 					{
 						box[1]=2;
 					}
-					else if(test==1)
+					else if(randomTest==1)
 						box[8]=2;
 				}
 			}
@@ -1111,12 +1111,12 @@ public class TicTacToe extends JApplet implements MouseListener{
 				}
 				else if(box[0]!=1&&box[5]!=1)
 				{
-					test=r.nextInt(2);
-					if(test==0)
+					randomTest=r.nextInt(2);
+					if(randomTest==0)
 					{
 						box[0]=2;
 					}
-					else if(test==1)
+					else if(randomTest==1)
 						box[5]=2;
 				}
 			}
@@ -1143,12 +1143,12 @@ public class TicTacToe extends JApplet implements MouseListener{
 				}
 				else if(box[2]!=1&&box[3]!=1)
 				{
-					test=r.nextInt(2);
-					if(test==0)
+					randomTest=r.nextInt(2);
+					if(randomTest==0)
 					{
 						box[2]=2;
 					}
-					else if(test==1)
+					else if(randomTest==1)
 						box[3]=2;
 				}
 			}
@@ -1175,12 +1175,12 @@ public class TicTacToe extends JApplet implements MouseListener{
 				}
 				else if(box[1]!=1&&box[6]!=1)
 				{
-					test=r.nextInt(2);
-					if(test==0)
+					randomTest=r.nextInt(2);
+					if(randomTest==0)
 					{
 						box[1]=2;
 					}
-					else if(test==1)
+					else if(randomTest==1)
 						box[6]=2;
 				}
 			}
@@ -1196,12 +1196,12 @@ public class TicTacToe extends JApplet implements MouseListener{
 				}
 				else if(box[1]!=1&&box[6]!=1)
 				{
-					test=r.nextInt(2);
-					if(test==0)
+					randomTest=r.nextInt(2);
+					if(randomTest==0)
 					{
 						box[1]=2;
 					}
-					else if(test==1)
+					else if(randomTest==1)
 						box[6]=2;
 				}
 			}
@@ -1228,12 +1228,12 @@ public class TicTacToe extends JApplet implements MouseListener{
 				}
 				else if(box[2]!=1&&box[3]!=1)
 				{
-					test=r.nextInt(2);
-					if(test==0)
+					randomTest=r.nextInt(2);
+					if(randomTest==0)
 					{
 						box[2]=2;
 					}
-					else if(test==1)
+					else if(randomTest==1)
 						box[3]=2;
 				}
 			}
@@ -1292,122 +1292,122 @@ public class TicTacToe extends JApplet implements MouseListener{
 		if(box[0]==gameState&&box[1]==gameState&&box[2]==0)		
 		{
 			box[2]=gameState;
-			movedSet();
+			moveSet();
 		}
 		else if(box[2]==gameState&&box[1]==gameState&&box[0]==0)		
 		{
 			box[0]=gameState;
-			movedSet();
+			moveSet();
 		}
 		else if(box[0]==gameState&&box[2]==gameState&&box[1]==0)		
 		{
 			box[1]=gameState;
-			movedSet();
+			moveSet();
 		}
 		else if(box[3]==gameState&&box[4]==gameState&&box[5]==0)		
 		{
 			box[5]=gameState;
-			movedSet();
+			moveSet();
 		}
 		else if(box[5]==gameState&&box[4]==gameState&&box[3]==0)		
 		{
 			box[3]=gameState;
-			movedSet();
+			moveSet();
 		}
 		else if(box[3]==gameState&&box[5]==gameState&&box[4]==0)		
 		{
 			box[4]=gameState;
-			movedSet();
+			moveSet();
 		}
 		else if(box[6]==gameState&&box[7]==gameState&&box[8]==0)		
 		{
 			box[8]=gameState;
-			movedSet();
+			moveSet();
 		}
 		else if(box[8]==gameState&&box[7]==gameState&&box[6]==0)		
 		{
 			box[6]=gameState;
-			movedSet();
+			moveSet();
 		}
 		else if(box[6]==gameState&&box[8]==gameState&&box[7]==0)		
 		{
 			box[7]=gameState;
-			movedSet();
+			moveSet();
 		}
 		else if(box[0]==gameState&&box[3]==gameState&&box[6]==0)		
 		{
 			box[6]=gameState;
-			movedSet();
+			moveSet();
 		}
 		else if(box[6]==gameState&&box[3]==gameState&&box[0]==0)		
 		{
 			box[0]=gameState;
-			movedSet();
+			moveSet();
 		}
 		else if(box[6]==gameState&&box[0]==gameState&&box[3]==0)		
 		{
 			box[3]=gameState;
-			movedSet();
+			moveSet();
 		}
 		else if(box[1]==gameState&&box[4]==gameState&&box[7]==0)		
 		{
 			box[7]=gameState;
-			movedSet();
+			moveSet();
 		}
 		else if(box[1]==gameState&&box[7]==gameState&&box[4]==0)		
 		{
 			box[4]=gameState;
-			movedSet();
+			moveSet();
 		}
 		else if(box[7]==gameState&&box[4]==gameState&&box[1]==0)		
 		{
 			box[1]=gameState;
-			movedSet();
+			moveSet();
 		}
 		else if(box[2]==gameState&&box[5]==gameState&&box[8]==0)		
 		{
 			box[8]=gameState;
-			movedSet();
+			moveSet();
 		}
 		else if(box[8]==gameState&&box[5]==gameState&&box[2]==0)		
 		{
 			box[2]=gameState;
-			movedSet();
+			moveSet();
 		}
 		else if(box[8]==gameState&&box[2]==gameState&&box[5]==0)		
 		{
 			box[5]=gameState;
-			movedSet();
+			moveSet();
 		}
 		else if(box[0]==gameState&&box[4]==gameState&&box[8]==0)		
 		{
 			box[8]=gameState;
-			movedSet();
+			moveSet();
 		}
 		else if(box[8]==gameState&&box[4]==gameState&&box[0]==0)		
 		{
 			box[0]=gameState;
-			movedSet();
+			moveSet();
 		}
 		else if(box[0]==gameState&&box[8]==gameState&&box[4]==0)		
 		{
 			box[4]=gameState;
-			movedSet();
+			moveSet();
 		}
 		else if(box[2]==gameState&&box[4]==gameState&&box[6]==0)		
 		{
 			box[6]=gameState;
-			movedSet();
+			moveSet();
 		}
 		else if(box[6]==gameState&&box[4]==gameState&&box[2]==0)		
 		{
 			box[2]=gameState;
-			movedSet();
+			moveSet();
 		}
 		else if(box[6]==gameState&&box[2]==gameState&&box[4]==0)		
 		{
 			box[4]=gameState;
-			movedSet();
+			moveSet();
 		}
 	}
 	public void defenseTest()//checks for losing move and blocks
@@ -1417,126 +1417,126 @@ public class TicTacToe extends JApplet implements MouseListener{
 			if(box[0]==2&&box[1]==2&&box[2]==0)		
 			{
 				box[2]=1;
-				movedSet();
+				moveSet();
 			}
 			else if(box[2]==2&&box[1]==2&&box[0]==0)		
 			{
 				box[0]=1;
-				movedSet();
+				moveSet();
 			}
 			else if(box[0]==2&&box[2]==2&&box[1]==0)		
 			{
 				box[1]=1;
-				movedSet();
+				moveSet();
 			}
 			else if(box[3]==2&&box[4]==2&&box[5]==0)		
 			{
 				box[5]=1;
-				movedSet();
+				moveSet();
 			}
 			else if(box[5]==2&&box[4]==2&&box[3]==0)		
 			{
 				box[3]=1;
-				movedSet();
+				moveSet();
 			}
 			else if(box[3]==2&&box[5]==2&&box[4]==0)		
 			{
 				box[4]=1;
-				movedSet();
+				moveSet();
 			}
 			else if(box[6]==2&&box[7]==2&&box[8]==0)		
 			{
 				box[8]=1;
-				movedSet();
+				moveSet();
 			}
 			else if(box[8]==2&&box[7]==2&&box[6]==0)		
 			{
 				box[6]=1;
-				movedSet();
+				moveSet();
 			}
 			else if(box[6]==2&&box[8]==2&&box[7]==0)		
 			{
 				box[7]=1;
-				movedSet();
+				moveSet();
 			}
 			else if(box[0]==2&&box[3]==2&&box[6]==0)		
 			{
 				box[6]=1;
-				movedSet();
+				moveSet();
 			}
 			else if(box[6]==2&&box[3]==2&&box[0]==0)		
 			{
 				box[0]=1;
-				movedSet();
+				moveSet();
 			}
 			else if(box[6]==2&&box[0]==2&&box[3]==0)		
 			{
 				box[3]=1;
-				movedSet();
+				moveSet();
 			}
 			else if(box[1]==2&&box[4]==2&&box[7]==0)		
 			{
 				box[7]=1;
-				movedSet();
+				moveSet();
 			}
 			else if(box[1]==2&&box[7]==2&&box[4]==0)		
 			{
 				box[4]=1;
-				movedSet();
+				moveSet();
 			}
 			else if(box[7]==2&&box[4]==2&&box[1]==0)		
 			{
 				box[1]=1;
-				movedSet();
+				moveSet();
 			}
 			else if(box[2]==2&&box[5]==2&&box[8]==0)		
 			{
 				box[8]=1;
-				movedSet();
+				moveSet();
 			}
 			else if(box[8]==2&&box[5]==2&&box[2]==0)		
 			{
 				box[2]=1;
-				movedSet();
+				moveSet();
 			}
 			else if(box[8]==2&&box[2]==2&&box[5]==0)		
 			{
 				box[5]=1;
-				movedSet();
+				moveSet();
 			}
 			else if(box[0]==2&&box[4]==2&&box[8]==0)		
 			{
 				box[8]=1;
-				movedSet();
+				moveSet();
 			}
 			else if(box[8]==2&&box[4]==2&&box[0]==0)		
 			{
 				box[0]=1;
-				movedSet();
+				moveSet();
 			}
 			else if(box[0]==2&&box[8]==2&&box[4]==0)		
 			{
 				box[4]=1;
-				movedSet();
+				moveSet();
 			}
 			else if(box[2]==2&&box[4]==2&&box[6]==0)		
 			{
 				box[6]=1;
-				movedSet();
+				moveSet();
 			}
 			else if(box[6]==2&&box[4]==2&&box[2]==0)		
 			{
 				box[2]=1;
-				movedSet();
+				moveSet();
 			}
 			else if(box[6]==2&&box[2]==2&&box[4]==0)		
 			{
 				box[4]=1;
-				movedSet();
+				moveSet();
 			}
 		}
 	}
-	public void movedSet()
+	public void moveSet()
 	{
 		moved=true;
 		repaint();
@@ -1558,12 +1558,12 @@ public class TicTacToe extends JApplet implements MouseListener{
 		{	
 			if((int) (cursor.getPoint().x) > 150 && cursor.getPoint().x<400 && cursor.getPoint().y > 250 &&cursor.getPoint().y<330)
 			{
-				test=r.nextInt(2);
-				if(test==0)
+				randomTest=r.nextInt(2);
+				if(randomTest==0)
 				{
 					gameState=1;
 				}
-				if(test==1)
+				if(randomTest==1)
 				{
 					gameState=2;
 				}
